@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yatırım Asistanı</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: #f5f5f5;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px;
+            margin: 10px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: none;
+            background: #4CAF50;
+            color: white;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Risk Seviyesi Seç</h2>
+
+<button onclick="getPortfolio('Low')">🟢 Low</button>
+<button onclick="getPortfolio('Medium')">🟡 Medium</button>
+<button onclick="getPortfolio('High')">🔴 High</button>
+
+<div id="result"></div>
+
+<script>
+function getPortfolio(risk) {
+    fetch(`http://10.30.228.167:8000/portfolio?risk=${risk}`)
+        .then(res => res.json())
+        .then(data => {
+            let html = "<h3>Önerilen Hisseler:</h3>";
+
+            for (let stock in data.Risk_Level) {
+                html += `<p><b>${stock}</b> → ${data.Risk_Level[stock]}</p>`;
+            }
+
+            document.getElementById("result").innerHTML = html;
+        });
+}
+</script>
+
+</body>
+</html>
