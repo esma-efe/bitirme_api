@@ -53,6 +53,13 @@ def get_portfolio(risk_level):
 def portfolio(risk: str):
     return get_portfolio(risk)
 
-@app.get("/")
-def home():
-    return FileResponse("index.html")
+@app.get("/stocks")
+def get_stocks():
+    return {
+        "AAPL": {"price": 270, "change": 1.2},
+        "MSFT": {"price": 320, "change": -0.5},
+        "GOOGL": {"price": 140, "change": 0.8},
+        "AMZN": {"price": 180, "change": 0.3},
+        "TSLA": {"price": 250, "change": -1.1}
+    }
+
